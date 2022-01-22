@@ -5,7 +5,29 @@
   Simple and easy to use.
 </p>
 
-## w
+## How to use?
+- Install from nuget or run command `?`
+- Add ``` using EasyLog; ```
+to top
+Then add
+```cs
+Logger log = new Logger();
+Config cfg = new Config();
+```
+If you want customize settings add
+```cs
+void SetConfig()
+{
+  cfg.LogPath = "NewLog.log";//Set path where you want log to be saved
+  cfg.Date = false;//If this is set to true it will add date to the log
+  cfg.Console = false;//If this is set to true it will print the log to Console too
+}
+```
+Then in your application main void add these
+```cs
+log.cfg = cfg;
+SetConfig();//Run this function only if you want set custom settings
+```
 
 ## Sending logs
 - Debug Log
