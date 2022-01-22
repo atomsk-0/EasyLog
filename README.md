@@ -4,7 +4,14 @@
 <p align="center">
   Simple and easy to use.
 </p>
-
+## Setupping
+- Install from nuget with name EasyLog or install with nuget package manager command ``` ? ```
+- After install add ```cs using EasyLog; ```
+- Then add
+```cs
+Logger log = new Logger();
+Config cfg = new Config();
+```
 
 ## Sending logs
 - Debug Log
