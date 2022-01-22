@@ -5,7 +5,6 @@
   Simple and easy to use.
 </p>
 ## Setupping
-- Install from nuget with name EasyLog or install with nuget package manager command ``` ? ```
 
 ## Sending logs
 - Debug Log
