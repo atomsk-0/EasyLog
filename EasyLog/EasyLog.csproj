@@ -1,13 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Authors>0x74</Authors>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <PackageId>Easy-Log</PackageId>
+    <Version>1.0.1</Version>
     <Description>Simple and easy Logging System for C# .NET</Description>
+    <Authors>0x74</Authors>
+    <PackageProjectUrl>https://github.com/byte-0x74/EasyLog</PackageProjectUrl>
     <RepositoryUrl>https://github.com/byte-0x74/EasyLog</RepositoryUrl>
     <PackageTags>log, logger, logging</PackageTags>
-    <PackageId>Easy-Log</PackageId>
+    <PackageReleaseNotes>Changed to .net standart 2.1</PackageReleaseNotes>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
 </Project>
