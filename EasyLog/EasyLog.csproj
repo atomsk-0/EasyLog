@@ -2,6 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>0x74</Authors>
+    <Description>Simple and easy Logging System for C# .NET</Description>
+    <RepositoryUrl>https://github.com/byte-0x74/EasyLog</RepositoryUrl>
+    <PackageTags>log, logger, logging</PackageTags>
+    <PackageId>Easy-Log</PackageId>
   </PropertyGroup>
 
 </Project>
