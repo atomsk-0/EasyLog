@@ -2,7 +2,7 @@
   EasyLog
 </h1>
 <p align="center">
-  Simple and easy to use.
+  Simple and easy to use logging system.
 </p>
 
 ## How to use?
