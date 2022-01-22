@@ -4,7 +4,7 @@
 <p align="center">
   Simple and easy to use.
 </p>
-See <a href""> Example </a>
+
 ## Sending logs
 - Debug Log
 ```cs
