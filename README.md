@@ -6,7 +6,7 @@
 </p>
 
 ## How to use?
-- Install from nuget or run command `?`
+- Install from nuget or run this command in NuGet Package manager `?`
 - Add ``` using EasyLog; ```
 to top
 Then add
