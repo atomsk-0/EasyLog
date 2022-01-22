@@ -4,7 +4,6 @@
 <p align="center">
   Simple and easy to use.
 </p>
-### Sending logs
 
 ## Sending logs
 - Debug Log
