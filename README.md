@@ -4,7 +4,7 @@
 <p align="center">
   Simple and easy to use.
 </p>
-## Setupping
+## Sending logs
 
 ## Sending logs
 - Debug Log
