@@ -6,9 +6,7 @@
 </p>
 ## How to use?
 - Install from nuget or run command `?`
-- Add ```cs
-using EasyLog;
-```
+- Add ``` using EasyLog; ```
 to top
 Then add
 ```cs
@@ -25,7 +23,7 @@ void SetConfig()
 }
 ```
 Then in your application main void add these
-```
+```cs
 log.cfg = cfg;
 SetConfig();//Run this function only if you want set custom settings
 ```
