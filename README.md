@@ -12,17 +12,17 @@
 log.Debug("Hello from log, this is debug");
 ```
 
--Info Log
+- Info Log
 ```cs
 log.Info("Hello from log, this is info");
 ```
 
--Warning Log
+- Warning Log
 ```cs
 log.Warning("Hello from log, this is warning");
 ```
 
--Error Log
+- Error Log
 ```cs
 log.Error("Hello from log, this is error");
 ```
