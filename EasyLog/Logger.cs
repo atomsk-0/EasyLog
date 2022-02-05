@@ -11,7 +11,7 @@ namespace EasyLog
         {
             if (File.Exists(cfg.LogPath) && start) File.Delete(cfg.LogPath);
             start = false;
-            if (cfg.Date) log = "DEBUG | [" + DateTime.Now.ToString() + "] " + log + log + "\n";
+            if (cfg.Date) log = "DEBUG | [" + DateTime.Now.ToString() + "] " + log + "\n";
             else log = "[DEBUG] " + log;
             if (cfg.Console) Console.WriteLine(log, Console.ForegroundColor = ConsoleColor.Yellow);
             File.AppendAllText(cfg.LogPath, log);
@@ -20,7 +20,7 @@ namespace EasyLog
         {
             if (File.Exists(cfg.LogPath) && start) File.Delete(cfg.LogPath);
             start = false;
-            if (cfg.Date) log = "INFO | [" + DateTime.Now.ToString() + "] " + log + log + "\n";
+            if (cfg.Date) log = "INFO | [" + DateTime.Now.ToString() + "] "+ log + "\n";
             else log = "[INFO] " + log;
             if (cfg.Console) Console.WriteLine(log, Console.ForegroundColor = ConsoleColor.Blue);
             File.AppendAllText(cfg.LogPath, log);
@@ -38,7 +38,7 @@ namespace EasyLog
         {
             if (File.Exists(cfg.LogPath) && start) File.Delete(cfg.LogPath);
             start = false;
-            if (cfg.Date) log = "ERROR | [" + DateTime.Now.ToString() + "] " + log + log + "\n";
+            if (cfg.Date) log = "ERROR | [" + DateTime.Now.ToString() + "] " + log + "\n";
             else log = "[ERROR] " + log;
             if (cfg.Console) Console.WriteLine(log, Console.ForegroundColor = ConsoleColor.Red);
             File.AppendAllText(cfg.LogPath, log);
