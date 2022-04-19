@@ -6,42 +6,78 @@ namespace EasyLog
     public class Logger
     {
         public Config cfg;
-        private bool start = true;
-        public void Debug(string log)
+        public bool isInit = false;
+
+        public void InitLogger()
         {
-            if (File.Exists(cfg.LogPath) && start) File.Delete(cfg.LogPath);
-            start = false;
-            if (cfg.Date) log = "DEBUG | [" + DateTime.Now.ToString() + "] " + log + "\n";
-            else log = "[DEBUG] " + log;
-            if (cfg.Console) Console.WriteLine(log, Console.ForegroundColor = ConsoleColor.Yellow);
-            File.AppendAllText(cfg.LogPath, log);
+            if (File.Exists(cfg.LogPath)) File.Delete(cfg.LogPath);
+            else { var fs = File.Create(cfg.LogPath); fs.Close(); }
+            isInit = true;
         }
-        public void Info(string log)
+
+        enum LogLevel
         {
-            if (File.Exists(cfg.LogPath) && start) File.Delete(cfg.LogPath);
-            start = false;
-            if (cfg.Date) log = "INFO | [" + DateTime.Now.ToString() + "] "+ log + "\n";
-            else log = "[INFO] " + log;
-            if (cfg.Console) Console.WriteLine(log, Console.ForegroundColor = ConsoleColor.Blue);
-            File.AppendAllText(cfg.LogPath, log);
+            Info = 0,
+            Debug,
+            Warning,
+            Error,
         }
-        public void Warning(string log)
+
+        public string ProcessLogText(int level)
         {
-            if (File.Exists(cfg.LogPath) && start) File.Delete(cfg.LogPath);
-            start = false;
-            if (cfg.Date) log = "WARN | [" + DateTime.Now.ToString() + "] " + log + "\n";
-            else log = "[WARN] " + log;
-            if (cfg.Console) Console.WriteLine(log, Console.ForegroundColor = ConsoleColor.DarkYellow);
-            File.AppendAllText(cfg.LogPath, log);
+            if (isInit == false)
+            {
+                return "Please Init logger first! you can init it by calling *YourLogName*.InitLogger();";
+            }
+            string text = string.Empty;
+            switch (level)
+            {
+                case (int)LogLevel.Info:
+                    if (cfg.ShowDate) text += $"[{DateTime.UtcNow.ToString()}] | ";
+                    text += "INFO => ";
+                    break;
+                case (int)LogLevel.Debug:
+                    if (cfg.ShowDate) text += $"[{DateTime.UtcNow.ToString()}] | ";
+                    text += "DEBUG => ";
+                    break;
+                case (int)LogLevel.Warning:
+                    if (cfg.ShowDate) text += $"[{DateTime.UtcNow.ToString()}] | ";
+                    text += "WARNING => ";
+                    break;
+                case (int)LogLevel.Error:
+                    if (cfg.ShowDate) text += $"[{DateTime.UtcNow.ToString()}] | ";
+                    text += "ERROR => ";
+                    break;
+            }
+            return text;
         }
-        public void Error(string log)
+
+        public void Debug(object Content)
         {
-            if (File.Exists(cfg.LogPath) && start) File.Delete(cfg.LogPath);
-            start = false;
-            if (cfg.Date) log = "ERROR | [" + DateTime.Now.ToString() + "] " + log + "\n";
-            else log = "[ERROR] " + log;
-            if (cfg.Console) Console.WriteLine(log, Console.ForegroundColor = ConsoleColor.Red);
-            File.AppendAllText(cfg.LogPath, log);
+            string LogText = ProcessLogText((int)LogLevel.Debug) + Content;
+            if (cfg.Console) { Console.WriteLine(LogText, Console.BackgroundColor = ConsoleColor.DarkYellow); Console.BackgroundColor = ConsoleColor.Black; }
+            File.AppendAllText(cfg.LogPath, LogText + Environment.NewLine);
+        }
+
+        public void Info(object Content)
+        {
+            string LogText = ProcessLogText((int)LogLevel.Info) + Content;
+            if (cfg.Console) { Console.WriteLine(LogText, Console.BackgroundColor = ConsoleColor.Blue); Console.BackgroundColor = ConsoleColor.Black; }
+            File.AppendAllText(cfg.LogPath, LogText + Environment.NewLine);
+        }
+
+        public void Warning(object Content)
+        {
+            string LogText = ProcessLogText((int)LogLevel.Warning) + Content;
+            if (cfg.Console) { Console.WriteLine(LogText, Console.BackgroundColor = ConsoleColor.Red); Console.BackgroundColor = ConsoleColor.Black; }
+            File.AppendAllText(cfg.LogPath, LogText + Environment.NewLine);
+        }
+
+        public void Error(object Content)
+        {
+            string LogText = ProcessLogText((int)LogLevel.Error) + Content;
+            if (cfg.Console) { Console.WriteLine(LogText, Console.BackgroundColor = ConsoleColor.DarkRed); Console.BackgroundColor = ConsoleColor.Black; }
+            File.AppendAllText(cfg.LogPath, LogText + Environment.NewLine);
         }
     }
 }

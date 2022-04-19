@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using EasyLog;
 
 namespace Example
@@ -8,23 +9,23 @@ namespace Example
         static Logger log = new Logger();
         static Config cfg = new Config();
         
-        //If you want change logger settings you can do that in this example i will not change it
+        //If you want change logger settings create function like this and call it when application starts
         static void SetConfig()
         {
-            cfg.LogPath = "NewLog.log";//Set path where you want log to be saved
-            cfg.Date = false;//If this is set to true it will add date to the log
-            cfg.Console = false;//If this is set to true it will print the log to Console too
+            cfg.LogPath = Environment.CurrentDirectory + @"\Application.log";//Set path where you want log to be saved
+            cfg.ShowDate = true;//If this is set to true it will add date to the log
+            cfg.Console = true;//If this is set to true it will print the log to Console too
         }
         static void Main(string[] args)
         {
-            //SetConfig();
+            SetConfig();
             log.cfg = cfg;
-            Console.Title = "Easy Log Example";
-
-            log.Info("Hello from log, this is info");
-            log.Debug("Hello from log, this is debug");
-            log.Warning("Hello from log, this is warning");
-            log.Error("Hello from log, this is error");
+            log.InitLogger();//Call this to init logger
+            log.Info("This is info log");
+            log.Debug("This is debug log");
+            log.Warning("This is warning text");
+            log.Error("This is error text");
+            log.Info("press any key to stop example");
             Console.ReadKey();
         }
     }
