@@ -6,7 +6,7 @@
 </p>
 
 ## How to use?
-- Install Easy-Log from nuget or run this command in NuGet Package manager ``` Install-Package Easy-Log -Version 1.0.4 ```
+- Install Easy-Log from nuget or run this command in NuGet Package manager ``` Install-Package Easy-Log -Version 1.0.5 ```
 - Add ``` using EasyLog; ```
 to top
 Then add
