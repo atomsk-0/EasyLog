@@ -29,7 +29,7 @@ namespace EasyLog
             {
                 return "Please Init logger first! you can init it by calling *YourLogName*.InitLogger();";
             }
-            string text = string.Empty;
+            object text = string.Empty;
             switch (level)
             {
                 case (int)LogLevel.Info:
@@ -49,7 +49,7 @@ namespace EasyLog
                     text += "ERROR => ";
                     break;
             }
-            return text;
+            return text.ToString();
         }
 
         public void Debug(object Content)
