@@ -1,3 +1,5 @@
+This project is not updated anymore please check [[EasyLogPlus](https://github.com/asoji/EasyLogPlus)] from asoji.
+
 <h1 align="center">
   EasyLog
 </h1>
