@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <PackageId>Easy-Log</PackageId>
+        <Version>2.0.0</Version>
+        <Title>Easy-Log</Title>
+        <Authors>Fyrax</Authors>
+        <Description>Simple and easy Logging System for C# .NET with colors and format support</Description>
+        <PackageProjectUrl>https://github.com/byte-0x74/EasyLog</PackageProjectUrl>
+        <License>https://licenses.nuget.org/MIT</License>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <RepositoryUrl>https://github.com/byte-0x74/EasyLog</RepositoryUrl>
+        <PackageTags>log logger logging logsystem easylog</PackageTags>
+        <PackageIcon>easylog.png</PackageIcon>
+        <PackageReleaseNotes>Whole project rewrite see sample project for example how to use</PackageReleaseNotes>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Pastel" Version="4.2.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="easylog.png">
+        <Pack>True</Pack>
+        <PackagePath></PackagePath>
+      </None>
+        <None Include="..\..\README.md" Pack="true" PackagePath="\"/>
+    </ItemGroup>
+
+</Project>

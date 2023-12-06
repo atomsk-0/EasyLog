@@ -1,54 +1,67 @@
-This project is not updated anymore please check [[EasyLogPlus](https://github.com/asoji/EasyLogPlus)] from asoji.
-
 <h1 align="center">
   EasyLog
 </h1>
 <p align="center">
-  Simple and easy to use logging system.
+  A simple and user-friendly logging system for .NET projects.
 </p>
 
-## How to use?
-- Install Easy-Log from nuget or run this command in NuGet Package manager ``` Install-Package Easy-Log -Version 1.0.5 ```
-- Add ``` using EasyLog; ```
-to top
-Then add
-```cs
-Logger log = new Logger();
-Config cfg = new Config();
+<img src="https://i.imgur.com/NKhyA4h.png" align="middle">
+
+## Installation
+Install Easy-Log in your project using NuGet Package Manager Console:
+```bash
+dotnet add package Easy-Log
 ```
-If you want customize settings add
-```cs
-void SetConfig()
+
+## Getting Started
+You can use the global instance `Log` or create your own instance with custom options.
+```csharp
+var options = new LoggerOptions
 {
-  cfg.LogPath = Environment.CurrentDirectory + @"\Application.log";//Set path where you want log to be saved
-  cfg.ShowDate = true;//If this is set to true it will add date to the log
-  cfg.Console = true;//If this is set to true it will print the log to Console too
+    ConsoleLogging = true,         // Log to console
+    ShowDateAndTime = true,        // Show Date and time with the log prefix
+    FileLogging = true,            // Allow log to file
+    FileOutputPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "App.log") // File output path
+};
+Logger log = new Logger(options);
+```
+
+If you are using the global instance, set options like this:
+```csharp
+Log.SetOptions(options);
+```
+
+## Log Types
+Easy-Log supports flexible log types. You can create your own by implementing the `ILogType` interface. Here's an example:
+```csharp
+public class Verbose : ILogType
+{
+    public string Prefix => "VERBOSE"; // Set log prefix
+    public Color PrefixColor => Color.Gray; // Set prefix color
+    public Color ArgColor => Color.Gray; // Set args color
 }
 ```
-Then in your application main void add these
-```cs
-log.cfg = cfg;
-SetConfig();
-log.InitLogger();//Call this to init logger
-```
 
-## Sending logs
-- Debug Log
-```cs
-log.Debug("Hello from log, this is debug");
-```
+## Logging
+To log messages, use the `Write` or `WriteLine` functions. For logging exceptions, use `LogException`.
 
-- Info Log
-```cs
-log.Info("Hello from log, this is info");
-```
+```csharp
+/* structure */
+instance.WriteLine<ILogType>(string, args)
+instance.Write<ILogType>(string, args)
+    
+Log.WriteLine<Debug>("Hello World ARG 0: {} ARG 2: {}", 419, 500);
+Log.WriteLine<Info>("Hello World ARG 0: {}", 613);
+Log.WriteLine<Warning>("Hello World ARG 0: {}", 74);
+Log.WriteLine<Error>("Hello World ARG 0: {}", 42);
 
-- Warning Log
-```cs
-log.Warning("Hello from log, this is warning");
-```
-
-- Error Log
-```cs
-log.Error("Hello from log, this is error");
+try
+{
+    List<int> list = new List<int>();
+    var item = list[10];
+}
+catch (Exception e)
+{
+    Log.LogException(e);
+}
 ```
