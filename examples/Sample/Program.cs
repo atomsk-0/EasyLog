@@ -15,10 +15,10 @@ var options = new LoggerOptions
 //var log = new Logger(options);
 
 Log.SetOptions(options);
-Log.WriteLine<Debug>("Hello World ARG 0: {} ARG 2: {}", 419, 500);
-Log.WriteLine<Info>("Hello World ARG 0: {}", 613);
-Log.WriteLine<Warning>("Hello World ARG 0: {}", 74);
-Log.WriteLine<Error>("Hello World ARG 0: {}", 42);
+Log.WriteLine<Debug>("Processing data - ID: {} Status: {}", 419, "In Progress");
+Log.WriteLine<Info>("Task completed successfully - ID: {}", 613);
+Log.WriteLine<Warning>("Unexpected input detected - Code: {}", "ABC123");
+Log.WriteLine<Error>("Critical error occurred - Code: {}", "X987");
 
 try
 {

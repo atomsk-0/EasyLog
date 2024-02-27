@@ -9,6 +9,7 @@ public class Logger
 {
     private readonly StreamWriter? _fileStream;
     private readonly LoggerOptions _loggerOptions;
+    private readonly Dictionary<Type, ILogType> _logTypeCache = new();
 
     public Logger(LoggerOptions loggerOptions)
     {
@@ -21,7 +22,7 @@ public class Logger
         _fileStream = File.CreateText(loggerOptions.FileOutputPath);
         _fileStream.AutoFlush = true;
     }
-    
+
     public void WriteLine<T>(string str, params object[] args) where T : ILogType, new()
     {
         Write<T>($"{str}\n", args);
@@ -29,26 +30,42 @@ public class Logger
 
     public void Write<T>(string str, params object[] args) where T : ILogType, new()
     {
-        var formatted = Utils.Format(str, args);
-        var logType = new T();
-        var dat = "";
+        var logType = GetLogType<T>();
+        var sb = new StringBuilder();
         if (_loggerOptions.ShowDateAndTime)
         {
-            dat = $"[{DateTime.Now.ToLongTimeString()}] ";
+            sb.Append($"[{DateTime.Now.ToLongTimeString()}] ");
         }
-        
+        sb.Append($"{logType.Prefix}: ".Pastel(logType.PrefixColor));
+        sb.Append(Utils.Format(str, args));
+
         if (_loggerOptions.ConsoleLogging)
         {
-            var colorized = Utils.ColorizeMessageArgs(formatted, logType.ArgColor, args);
-            Console.Write(dat.Pastel(ConsoleColor.DarkGray) + $"{logType.Prefix}: ".Pastel(logType.PrefixColor) +  colorized);
+            var colorized = Utils.ColorizeMessageArgs(sb.ToString(), logType.ArgColor, args);
+            Console.Write(colorized);
         }
-        
-        
-        _fileStream?.Write($"{dat}{logType.Prefix}: {formatted}");
+
+        _fileStream?.Write(sb.ToString());
     }
-    
+
     public void LogException(Exception ex)
     {
-        WriteLine<Error>("Exception: {}\nMessage: {}\nStackTrace: {}", ex.GetType().FullName ?? "Unknown Source", ex.Message, ex.StackTrace ?? "No stacktrace");
+        var sb = new StringBuilder();
+        sb.AppendLine("An exception has occurred:".Pastel(GetLogType<Error>().PrefixColor));
+        sb.AppendLine(ex.GetType().FullName.Pastel(GetLogType<Error>().PrefixColor) ?? "Unknown Source".Pastel(GetLogType<Error>().PrefixColor));
+        sb.AppendLine(ex.Message.Pastel(GetLogType<Error>().PrefixColor));
+        sb.AppendLine(ex.StackTrace.Pastel(GetLogType<Error>().PrefixColor) ?? "No stacktrace".Pastel(GetLogType<Error>().PrefixColor));
+        WriteLine<Error>(sb.ToString());
+    }
+    
+    private T GetLogType<T>() where T : ILogType, new()
+    {
+        var type = typeof(T);
+        if (!_logTypeCache.TryGetValue(type, out var logType))
+        {
+            logType = new T();
+            _logTypeCache[type] = logType;
+        }
+        return (T)logType;
     }
 }

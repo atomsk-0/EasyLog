@@ -5,7 +5,7 @@
   Simple and easy to use logging system.
 </p>
 
-<img src="https://i.imgur.com/NKhyA4h.png" align="middle">
+<img src="https://i.imgur.com/fmZhWRU.png" align="middle">
 
 ## How to use?
 - Install Easy-Log to your project from nuget

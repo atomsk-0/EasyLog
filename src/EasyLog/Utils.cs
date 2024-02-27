@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.Text;
 using Pastel;
 
 namespace EasyLog;
@@ -7,22 +8,31 @@ internal static class Utils
 {
     internal static string ColorizeMessageArgs(string str, Color color, params object[] args)
     {
-        return args.Select(arg => arg.ToString()!).Aggregate(str, (current, sArg) => current.Replace(sArg, sArg.Pastel(color)));
+        var sb = new StringBuilder(str);
+        foreach (var arg in args)
+        {
+            var sArg = arg.ToString()!;
+            sb.Replace(sArg, sArg.Pastel(color));
+        }
+        return sb.ToString();
     }
     
     /* This makes possible to just have {} instead like this {0}, {1}... */
     internal static string Format(string str, params object[] args)
     {
+        var sb = new StringBuilder(str);
         for (var i = 0; i < args.Length; i++)
         {
-            str = str.ReplaceFirst("{}", "{" + i + "}");
+            sb.ReplaceFirst("{}", "{" + i + "}");
         }
-        return string.Format(str, args);
+        return string.Format(sb.ToString(), args);
     }
-    
-    internal static string ReplaceFirst(this string text, string search, string replace)
+
+    private static void ReplaceFirst(this StringBuilder sb, string search, string replace)
     {
-        var pos = text.IndexOf(search, StringComparison.Ordinal);
-        return pos < 0 ? text : string.Concat(text.AsSpan(0, pos), replace, text.AsSpan(pos + search.Length));
+        var pos = sb.ToString().IndexOf(search, StringComparison.Ordinal);
+        if (pos < 0) return;
+        sb.Remove(pos, search.Length);
+        sb.Insert(pos, replace);
     }
 }
