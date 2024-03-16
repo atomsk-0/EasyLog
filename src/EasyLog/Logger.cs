@@ -32,9 +32,10 @@ public class Logger
     {
         var logType = GetLogType<T>();
         var sb = new StringBuilder();
+        var dateTime = DateTime.Now.ToLongTimeString();
         if (_loggerOptions.ShowDateAndTime)
         {
-            sb.Append($"[{DateTime.Now.ToLongTimeString()}] ");
+            sb.Append($"[{dateTime}] ");
         }
         sb.Append($"{logType.Prefix}: ".Pastel(logType.PrefixColor));
         sb.Append(Utils.Format(str, args));
@@ -45,7 +46,7 @@ public class Logger
             Console.Write(colorized);
         }
 
-        _fileStream?.Write(sb.ToString());
+        _fileStream?.Write($"[{dateTime}] {logType.Prefix}: {Utils.Format(str, args)}");
     }
 
     public void LogException(Exception ex)
